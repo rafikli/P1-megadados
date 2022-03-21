@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException
 
 from pydantic import BaseModel
 import uuid
-id_inc = 1
+
 app = FastAPI()
 
 class Item(BaseModel):
@@ -44,4 +44,11 @@ def update_item(item_id: uuid.UUID, item: Item):
     base["inventario"][item_id] = item
     return base["inventario"]
 
-
+@app.delete("/inventario/{item_id}")
+def delete_item(item_id: uuid.UUID):
+    print(base["inventario"])
+    if item_id not in base["inventario"]:
+        raise HTTPException(status_code=404)  
+    else:
+        base["inventario"].pop(item_id,False)
+        return base["inventario"]
