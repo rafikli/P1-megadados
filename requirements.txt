@@ -1,3 +1,4 @@
 fastAPI
 pydantic
 uvicorn[standard]
+sqlalchemy
